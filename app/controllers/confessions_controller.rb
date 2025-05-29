@@ -3,6 +3,7 @@ class ConfessionsController < ApplicationController
   
   def index
     @confessions = Confession.order(created_at: :desc).limit(20)
+    @trending_confessions = Confession.all.sort_by(&:score).reverse.first(3)
   end
   
   def create
