@@ -1,0 +1,36 @@
+<div class="space-y-8">
+  <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl ring-1 ring-indigo-100">
+    <div class="px-6 py-8 sm:p-8">
+      <h2 class="text-xl font-semibold text-gray-900 mb-6">Share Your Confession</h2>
+      <div class="mt-4">
+        <%= render 'form' %>
+      </div>
+    </div>
+  </div>
+
+  <% if @trending_confessions.any? %>
+    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl ring-1 ring-indigo-100">
+      <h2 class="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+        <svg class="h-5 w-5 text-indigo-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+        </svg>
+        Trending Confessions
+      </h2>
+      <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+        <%= render partial: 'confession', collection: @trending_confessions %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl ring-1 ring-indigo-100">
+    <h2 class="text-xl font-semibold text-gray-900 mb-6 flex items-center">
+      <svg class="h-5 w-5 text-indigo-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+      </svg>
+      Recent Confessions
+    </h2>
+    <div id="confessions" class="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
+      <%= render partial: 'confession', collection: @confessions %>
+    </div>
+  </div>
+</div>

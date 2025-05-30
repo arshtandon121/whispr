@@ -1,0 +1,33 @@
+<%= form_with(model: Confession.new, 
+    class: "space-y-4", 
+    data: { 
+      turbo: true,
+      turbo_stream: true,
+      controller: "confession-form"
+    }) do |f| %>
+  <div>
+    <%= f.label :body, "Your Confession", class: "block text-sm font-medium text-gray-700" %>
+    <div class="mt-1">
+      <%= f.text_area :body, 
+          class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm",
+          rows: 4,
+          maxlength: 500,
+          placeholder: "Share your thoughts... (max 500 characters)",
+          data: { 
+            action: "input->confession-form#validate",
+            confession_form_target: "body"
+          } %>
+    </div>
+    <p class="mt-2 text-sm text-gray-500">
+      Your confession will be posted anonymously. You can post up to 3 confessions per day.
+    </p>
+  </div>
+  
+  <%= f.submit "Post Confession", 
+      class: "inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2",
+      data: { 
+        confession_form_target: "submit",
+        action: "click->confession-form#submit",
+        turbo_submits_with: "Posting..."
+      } %>
+<% end %>

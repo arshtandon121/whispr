@@ -3,7 +3,7 @@ class ConfessionsController < ApplicationController
   
   def index
     @confessions = Confession.order(created_at: :desc).limit(20)
-    @trending_confessions = Confession.all.sort_by(&:score).reverse.first(3)
+    @trending_confessions = Confession.trending(3)
   end
   
   def create
@@ -11,10 +11,45 @@ class ConfessionsController < ApplicationController
     @confession.ip_address = request.remote_ip
     
     if @confession.save
-      redirect_to root_path, notice: 'Confession posted successfully!'
+      respond_to do |format|
+        format.html do
+          flash[:notice] = "Your confession has been posted successfully! 🎉"
+          redirect_to root_path
+        end
+        format.turbo_stream do
+          flash.now[:notice] = "Your confession has been posted successfully! 🎉"
+          render turbo_stream: [
+            turbo_stream.update("flash_messages", 
+              partial: "shared/flash"
+            ),
+            turbo_stream.prepend("confessions", 
+              partial: "confession", 
+              locals: { confession: @confession }
+            )
+          ]
+        end
+      end
     else
-      redirect_to root_path, alert: 'Error posting confession.'
+      error_message = @confession.errors.full_messages.join(', ')
+      respond_to do |format|
+        format.html do
+          flash[:alert] = "Unable to post confession: #{error_message}"
+          redirect_to root_path
+        end
+        format.turbo_stream do
+          flash.now[:alert] = "Unable to post confession: #{error_message}"
+          render turbo_stream: turbo_stream.update("flash_messages", 
+            partial: "shared/flash"
+          ), status: :unprocessable_entity
+        end
+      end
     end
+  end
+
+  def check_reaction
+    @confession = Confession.find(params[:id])
+    has_reacted = @confession.reactions.exists?(ip_address: request.remote_ip)
+    render json: { has_reacted: has_reacted }
   end
   
   private

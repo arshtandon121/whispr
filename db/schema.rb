@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_29_141423) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_29_141424) do
   create_table "confessions", force: :cascade do |t|
     t.text "body"
     t.string "ip_address"
@@ -25,6 +25,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_29_141423) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["confession_id"], name: "index_reactions_on_confession_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.boolean "admin", default: false
+    t.string "remember_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["remember_token"], name: "index_users_on_remember_token"
   end
 
   add_foreign_key "reactions", "confessions"

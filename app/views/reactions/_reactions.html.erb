@@ -1,0 +1,22 @@
+<div class="flex items-center space-x-4">
+  <% %w[like hug laugh].each do |type| %>
+    <%= button_to confession_reactions_path(confession, reaction: { reaction_type: type }),
+        class: "inline-flex items-center space-x-1 rounded-full px-3 py-1 text-sm font-medium transition-colors duration-200 hover:bg-gray-100",
+        data: { 
+          action: "click->confession#react",
+          confession_target: "reactionButton",
+          type: type
+        } do %>
+      <span class="text-xl">
+        <%= case type
+            when 'like' then '❤️'
+            when 'hug' then '🤗'
+            when 'laugh' then '😂'
+            end %>
+      </span>
+      <span class="reaction-count text-gray-600" data-confession-target="<%= type %>Count">
+        <%= confession.reactions.where(reaction_type: type).count %>
+      </span>
+    <% end %>
+  <% end %>
+</div>
