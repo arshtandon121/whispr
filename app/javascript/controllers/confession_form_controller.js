@@ -41,13 +41,10 @@ export default class extends Controller {
 
   handleSubmitEnd(event) {
     const response = event.detail.fetchResponse
-    
-    // Re-enable the submit button
     this.submitTarget.disabled = false
     this.submitTarget.classList.remove("opacity-50", "cursor-not-allowed")
     
     if (response.ok) {
-      // Reset form
       this.bodyTarget.value = ""
       this.validate()
     }
@@ -57,14 +54,11 @@ export default class extends Controller {
     const response = event.detail.fetchResponse
     
     if (!response.ok) {
-      event.preventDefault() // Prevent Turbo from processing the response
+      event.preventDefault()
       
-      // Handle rate limit error
       if (response.status === 429) {
         this.showErrorMessage('Rate Limited!', 'Please wait a moment before posting again.', 'warning')
       } else {
-        // For 500 errors and other server errors, try to get the error message
-        // but fall back to a generic message if we can't parse the response
         try {
           const contentType = response.headers.get('content-type')
           if (contentType && contentType.includes('application/json')) {
@@ -74,16 +68,13 @@ export default class extends Controller {
               this.showErrorMessage('Error!', 'Something went wrong. Please try again.', 'error')
             })
           } else {
-            // If not JSON, just show generic error
             this.showErrorMessage('Error!', 'Something went wrong. Please try again.', 'error')
           }
         } catch (error) {
-          // If anything goes wrong in the error handling, show generic error
           this.showErrorMessage('Error!', 'Something went wrong. Please try again.', 'error')
         }
       }
     } else {
-      // Show success message for successful submissions
       Swal.fire({
         title: 'Success!',
         text: 'Your confession has been posted.',
