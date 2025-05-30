@@ -1,24 +1,85 @@
-# README
+# Whispr
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Whispr is a modern, anonymous confession platform built with Ruby on Rails. It allows users to share their thoughts and confessions anonymously in a safe and engaging environment.
 
-Things you may want to cover:
+## Features
 
-* Ruby version
+- Anonymous confession posting
+- Real-time form validation
+- Modern UI with Tailwind CSS
+- Responsive design
+- Rate limiting for spam prevention
+- SweetAlert2 for beautiful notifications
+- Turbo for smooth, SPA-like experience
 
-* System dependencies
+## Tech Stack
 
-* Configuration
+- Ruby on Rails 7
+- Ruby 3.2.2
+- PostgreSQL
+- Tailwind CSS
+- Stimulus.js
+- Turbo
+- SweetAlert2
 
-* Database creation
+## Prerequisites
 
-* Database initialization
+- Ruby 3.2.2 or higher
+- PostgreSQL
+- Node.js and Yarn
+- Redis (for rate limiting)
 
-* How to run the test suite
+## Getting Started
 
-* Services (job queues, cache servers, search engines, etc.)
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/arshtandon121/whispr.git
+   cd whispr
+   ```
 
-* Deployment instructions
+2. Install dependencies:
+   ```bash
+   bundle install
+   yarn install
+   ```
 
-* ...
+3. Set up the database:
+   ```bash
+   rails db:create
+   rails db:migrate
+   ```
+
+4. Start the Redis server (required for rate limiting)
+
+5. Start the Rails server:
+   ```bash
+   rails server
+   ```
+
+6. Visit `http://localhost:3000` in your browser
+
+## Development
+
+- Run tests: `rails test`
+- Run linters: `rubocop`
+- Run JavaScript tests: `yarn test`
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [Ruby on Rails](https://rubyonrails.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [SweetAlert2](https://sweetalert2.github.io/)
+- [Stimulus](https://stimulus.hotwired.dev/)
+- [Turbo](https://turbo.hotwired.dev/)
