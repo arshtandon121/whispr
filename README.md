@@ -1,6 +1,8 @@
 # Whispr
 
 Whispr is a modern, anonymous confession platform built with Ruby on Rails. It allows users to share their thoughts and confessions anonymously in a safe and engaging environment.
+![image](https://github.com/user-attachments/assets/10b43969-6556-4ae1-84a2-64c217b2231b)
+
 
 ## Features
 
